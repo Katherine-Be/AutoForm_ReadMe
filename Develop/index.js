@@ -1,5 +1,19 @@
-// TODO: Include packages needed for this application
-
+// erquired for application
+var inquirer = require('inquirer');
+inquirer
+  .prompt([
+    /* Pass your questions in here */
+  ])
+  .then((answers) => {
+    // Use user feedback for... whatever!!
+  })
+  .catch((error) => {
+    if (error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else went wrong
+    }
+  });
 // TODO: Create an array of questions for user input
 const questions = [];
 

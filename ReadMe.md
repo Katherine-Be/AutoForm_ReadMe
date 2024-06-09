@@ -35,7 +35,7 @@
 
     ![alt text](sus)
 
-    ![ alt text ](https://img.shields.io/badge/AmongUs-Shapeshifter-red.svg)
+    ![ alt text ](https://img.shields.io/badge/amongus-shapeshifter-red.svg)
 
     ## Questions
     dfg

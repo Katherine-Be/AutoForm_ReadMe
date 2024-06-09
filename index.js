@@ -5,12 +5,12 @@ var fs = require('fs');
 
 function init() {
   inquirer.prompt([
-      //prompt format:
-      //{
-      //allowed user input type,
-      //question/prompt displayed in console for user, 
-      //object name to reference user's answer
-      //},
+      // prompt format:
+      // {
+      // allowed user input type,
+      // question/prompt displayed in console for user, 
+      // object name to reference user's answer
+      // },
     {
     type: 'input',
     message: 'Your project title:',
@@ -88,7 +88,7 @@ function init() {
     }
   ])
   .then((answers) => {
-    //const to format the readmefile
+    // format the readmefile
     const readmeContent = `
     # ${answers.title}
     
@@ -132,8 +132,8 @@ function init() {
     ${answers.github}
     ${answers.email}
     `;
-    
-    //create file in fs
+
+    // create file in fs
     fs.writeFile('newReadMe.md', readmeContent, function (err) {
       if (err) throw err;
       console.log('newReadMe.md has been saved!');
@@ -144,5 +144,5 @@ function init() {
   });
 };
 
-//initialize app
+// initialize app
 init();

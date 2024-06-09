@@ -43,7 +43,7 @@ function init() {
     },
     {
       type: 'input',
-      message: 'Include any third-party attributions are required. (If none, hit ENTER)',
+      message: 'Include any third-party attributions that are required. (If none, hit ENTER)',
       name: 'creditAttributions',
     },
     {
@@ -84,11 +84,11 @@ function init() {
     {
       type: 'input',
       message: 'What is your email?',
-      name: 'emsil',
+      name: 'email',
     }
   ])
   .then((answers) => {
-    // format the readmefile
+    // format the readmefile - can make this a separate js file
     const readmeContent = 
     `
 # ${answers.title}
@@ -116,7 +116,7 @@ ${answers.use}
 ${answers.testing}
 
 ## Credits
-${answers.credits}
+${answers.creditCollabs}
 ${answers.creditAttributions}
 
 ## Contributing
@@ -137,7 +137,7 @@ ${answers.email}
     // create file in fs
     fs.writeFile('ReadMe.md', readmeContent, function (err) {
       if (err) throw err;
-      console.log('newReadMe.md has been saved!');
+      console.log('ReadMe.md has been saved!');
     });
   })
   .catch((error) => {

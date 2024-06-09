@@ -126,7 +126,7 @@ function init() {
 
     ![alt text](${answers.demo})
 
-    ![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor}.svg)]
+    ![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor})]
 
     ## Questions
     ${answers.github}

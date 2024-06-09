@@ -2,6 +2,7 @@
 var inquirer = require('inquirer');
 var fs = require('fs');
 
+
 function init() {
   inquirer.prompt([
       //prompt format:
@@ -29,16 +30,36 @@ function init() {
     type: 'input',
     message: 'How does the user interact with your application?',
     name: 'use',
-    }
+    },
     {
       type: 'input',
-      message: 'What other colaborators were involved in making your application?',
+      message: 'What other colaborators were involved in making your application? (If none, hit ENTER)',
       name: 'creditCollabs',
-    }
+    },
     {
       type: 'input',
-      message: 'List any third-party attributions.',
+      message: 'Include any third-party attributions are required. (If none, hit ENTER)',
       name: 'creditAttributions',
+    },
+    {
+      type: 'input',
+      message: 'Add a link or the file path to a screenshot of your application.',
+      name: 'demo',
+    },
+    {
+      type: 'input',
+      message: 'If you would like to include a Badge, what is the badge subject(left side text)? (If none, hit ENTER)',
+      name: 'badgeSubject',
+    },
+    {
+      type: 'input',
+      message: 'If you would like to include a Badge, what is the badge status(right side text)? (If none, hit ENTER)',
+      name: 'badgeStatus',
+    },
+    {
+      type: 'input',
+      message: 'If youw= would like to include a Badge, what is the badge color? (If none, hit ENTER)',
+      name: 'badgeColor',
     }
   ])
   .then((answers) => {
@@ -64,6 +85,12 @@ function init() {
     ## Credits
     ${answers.credits}
     ${answers.creditAttributions}
+
+    ![alt text](${answers.demo})
+
+    ## Badges
+    [![General badge](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor}.svg)](https://shields.io/)
+
     `;
     //create file in fs
     fs.writeFile('newReadMe.md', readmeContent, function (err) {

@@ -33,6 +33,11 @@ function init() {
     },
     {
       type: 'input',
+      message: 'How does the user run tests for the application?',
+      name: 'testing',
+    },
+    {
+      type: 'input',
       message: 'What other colaborators were involved in making your application? (If none, hit ENTER)',
       name: 'creditCollabs',
     },
@@ -40,6 +45,16 @@ function init() {
       type: 'input',
       message: 'Include any third-party attributions are required. (If none, hit ENTER)',
       name: 'creditAttributions',
+    },
+    {
+      type: 'input',
+      message: 'How can users contribute to your application?',
+      name: 'contributing',
+    },
+    {
+      type: 'input',
+      message: 'What is the licensing for your application?',
+      name: 'license',
     },
     {
       type: 'input',
@@ -58,8 +73,18 @@ function init() {
     },
     {
       type: 'input',
-      message: 'If youw= would like to include a Badge, what is the badge color? (If none, hit ENTER)',
+      message: 'If youw= would like to include a Badge, what is the badge color(hex, rgb, rgba, hsl, hsla and css format accepted without special characters)? (If none, hit ENTER)',
       name: 'badgeColor',
+    },
+    {
+      type: 'input',
+      message: 'What is your name and/or GitHub username?',
+      name: 'github',
+    },
+    {
+      type: 'input',
+      message: 'What is your email?',
+      name: 'emsil',
     }
   ])
   .then((answers) => {
@@ -75,6 +100,10 @@ function init() {
     - [Installation](#installation)
     - [Use](#use)    
     - [Credits](#credits)
+    - [Contributing](#contributing)
+    - [License](#license)
+    - [Testing](#testing)
+
     
     ## Installation
     ${answers.installation}
@@ -82,16 +111,28 @@ function init() {
     ## Use
     ${answers.use}
 
+    ## Testing
+    ${answers.testing}
+
     ## Credits
     ${answers.credits}
     ${answers.creditAttributions}
 
+    ## Contributing
+    ${answers.contributing}
+
+    ## License
+    ${answers.license}
+
     ![alt text](${answers.demo})
 
-    ## Badges
-    [![General badge](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor}.svg)](https://shields.io/)
+    ![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor}.svg)]
 
+    ## Questions
+    ${answers.github}
+    ${answers.email}
     `;
+    
     //create file in fs
     fs.writeFile('newReadMe.md', readmeContent, function (err) {
       if (err) throw err;

@@ -15,10 +15,10 @@ This application takes user responses and creates a ReadMe.md file for their app
 
     
 ## Installation
-Clone the github repository, open a terminal, run npm install, and then run the application. 
+Clone the github repository, open a CLI terminal, ensure node.js is installed, run npm install, and then run the application. 
     
 ## Use
-To run this application, enter "node index.js" in your CLI, then answer the prompts. When all prompts have been answered, a ReadMe.md file will appear in the application folder. Copy that file and add it to your application.
+To run this application, enter "node index.js" in your CLI, then answer the prompts. When all prompts have been answered, a ReadMe.md file will appear in the application folder. Copy that file and add it to your application. From that file, remove any empty(unused) badges and sections of the ReadMe and Table of Contents.
 
 ## Testing
 
@@ -33,9 +33,9 @@ To run this application, enter "node index.js" in your CLI, then answer the prom
 ## License
 
 
-![alt text]()
+![alt text](./Develop/image/AutoForm_ReadMe.gif)
 
-![ alt text ](https://img.shields.io/badge/--)
+![ alt text ](https://img.shields.io/badge/left-right-red)
 
 ## Questions
 Katherine-Be

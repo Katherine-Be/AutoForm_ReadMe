@@ -35,6 +35,7 @@
 
     ![alt text](sus)
 
+    ## Badges
     ![Static Badge](https://img.shields.io/badge/amongus-shapeshifter-red)
 
     ## Questions

@@ -89,52 +89,53 @@ function init() {
   ])
   .then((answers) => {
     // format the readmefile
-    const readmeContent = `
-    # ${answers.title}
+    const readmeContent = 
+    `
+# ${answers.title}
     
-    ## Description
-    ${answers.description}
+## Description
+${answers.description}
 
-    ## Table of Contents
-    - [Description](#description)
-    - [Installation](#installation)
-    - [Use](#use)    
-    - [Credits](#credits)
-    - [Contributing](#contributing)
-    - [License](#license)
-    - [Testing](#testing)
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [Use](#use)    
+- [Credits](#credits)
+- [Contributing](#contributing)
+- [License](#license)
+- [Testing](#testing)
 
     
-    ## Installation
-    ${answers.installation}
+## Installation
+${answers.installation}
     
-    ## Use
-    ${answers.use}
+## Use
+${answers.use}
 
-    ## Testing
-    ${answers.testing}
+## Testing
+${answers.testing}
 
-    ## Credits
-    ${answers.credits}
-    ${answers.creditAttributions}
+## Credits
+${answers.credits}
+${answers.creditAttributions}
 
-    ## Contributing
-    ${answers.contributing}
+## Contributing
+${answers.contributing}
 
-    ## License
-    ${answers.license}
+## License
+${answers.license}
 
-    ![alt text](${answers.demo})
+![alt text](${answers.demo})
 
-    ![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor})
+![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor})
 
-    ## Questions
-    ${answers.github}
-    ${answers.email}
-    `;
+## Questions
+${answers.github}
+${answers.email}
+`;
 
     // create file in fs
-    fs.writeFile('newReadMe.md', readmeContent, function (err) {
+    fs.writeFile('ReadMe.md', readmeContent, function (err) {
       if (err) throw err;
       console.log('newReadMe.md has been saved!');
     });

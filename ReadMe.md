@@ -20,22 +20,7 @@ Clone the github repository, open a CLI terminal, ensure node.js is installed, r
 ## Use
 To run this application, enter "node index.js" in your CLI, then answer the prompts. When all prompts have been answered, a ReadMe.md file will appear in the application folder. Copy that file and add it to your application. From that file, remove any empty(unused) badges and sections of the ReadMe and Table of Contents.
 
-## Testing
-
-
-## Credits
-
-
-
-## Contributing
-
-
-## License
-
-
 ![alt text](./Develop/image/AutoForm_ReadMe.gif)
-
-![ alt text ](https://img.shields.io/badge/left-right-red)
 
 ## Questions
 Katherine-Be

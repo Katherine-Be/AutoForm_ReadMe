@@ -52,8 +52,13 @@ function init() {
       name: 'contributing',
     },
     {
-      type: 'input',
-      message: 'What is the licensing for your application?',
+      type: 'rawlist',
+      message: 'What is the licensing for your application? (This will create a badge and explanation of the license)',
+      choices: [
+        'Creative Commons Family',
+        'Do What The F*ck You Want To Public License',
+        'LaTeX Project Public License v1.3c'
+      ],
       name: 'license',
     },
     {
@@ -87,6 +92,21 @@ function init() {
       name: 'email',
     }
   ])
+    .then((answers) => {
+    // create license bage and add description of license
+    if (answers.license === 'Creative Commons Family') {
+      answers.license = 'CC BY';
+      answers.licenseDescription = 'This license lets others distribute, remix, adapt, and build upon your work, even commercially, as long as they credit you for the original creation.';
+    } else if (answers.license === 'Do What The F*ck You Want To Public License') {
+      answers.license = 'WTFPL';
+      answers.licenseDescription = 'This is a free software license that allows for unlimited freedom and is permissive in nature. The user is allowed to do whatever they want with the software.';
+    } else if (answers.license === 'LaTeX Project Public License v1.3c') {
+      answers.license = 'LPPL-1.3c';
+      answers.licenseDescription = 'This license is a free software license that allows users to use, modify, and distribute the software. It is specifically designed for the LaTeX project.';
+    }
+    return answers;
+  })
+
   .then((answers) => {
     // format the readmefile - can make this a separate js file
     const readmeContent = 
@@ -123,14 +143,15 @@ ${answers.creditAttributions}
 ${answers.contributing}
 
 ## License
-${answers.license}
+![ alt text ](https://img.shields.io/badge/License-${answers.licenses}-blue)
+${answers.licenseDescription}
 
 ![alt text](${answers.demo})
 
 ![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor})
 
 ## Questions
-${answers.github}
+${answers.github} ![GitHub Profile](www.github.com/${answers.github})
 ${answers.email}
 `;
 

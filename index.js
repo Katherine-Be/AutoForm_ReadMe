@@ -4,12 +4,14 @@ var fs = require('fs');
 
 
 function init() {
+  // create prompts in inquirer format
   inquirer.prompt([
       // prompt format:
       // {
       // allowed user input type,
       // question/prompt displayed in console for user, 
       // object name to reference user's answer
+      // choices (if applicable),
       // },
     {
     type: 'input',
@@ -38,7 +40,7 @@ function init() {
     },
     {
       type: 'input',
-      message: 'What other colaborators were involved in making your application? (If none, hit ENTER)',
+      message: 'What other collaborators were involved in making your application? (If none, hit ENTER)',
       name: 'creditCollabs',
     },
     {
@@ -57,7 +59,8 @@ function init() {
       choices: [
         'Creative Commons Family',
         'Do What The F*ck You Want To Public License',
-        'LaTeX Project Public License v1.3c'
+        'LaTeX Project Public License v1.3c',
+        'None'
       ],
       name: 'license',
     },
@@ -78,7 +81,7 @@ function init() {
     },
     {
       type: 'input',
-      message: 'If youw= would like to include a Badge, what is the badge color(hex, rgb, rgba, hsl, hsla and css format accepted without special characters)? (If none, hit ENTER)',
+      message: 'If you would like to include a Badge, what is the badge color(hex, rgb, rgba, hsl, hsla and css format accepted without special characters)? Default color is red. (If none, hit ENTER)',
       name: 'badgeColor',
     },
     {
@@ -92,7 +95,8 @@ function init() {
       name: 'email',
     }
   ])
-    .then((answers) => {
+  
+  .then((answers) => {
     // create license bage and add description of license
     if (answers.license === 'Creative Commons Family') {
       answers.license = 'CC BY';
@@ -105,55 +109,107 @@ function init() {
       answers.licenseDescription = 'This license is a free software license that allows users to use, modify, and distribute the software. It is specifically designed for the LaTeX project.';
     }
     return answers;
-  })
+    })
 
   .then((answers) => {
-    // format the readmefile - can make this a separate js file
+    //check if bad color is in a valid format
+    if (answers.badgeColor != '') {
+      const color = answers.badgeColor;
+      const regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+      if (regex.test(color)) {
+        answers.badgeColor = color;
+      } else {
+        answers.badgeColor = 'red';
+      }
+    }
+    return answers;
+  })
+  
+  .then((answers) => {
+      // create Table of Contents and format answers for ReadMe
+      var tableOfContents = ("## Table of Contents\n\n")
+  
+      if (answers.description !='') {
+        answers.description = ("## Description\n" + answers.description + "\n");
+        tableOfContents += ("[Description](#description)\n")
+      }
+      if (answers.installation !='') {
+        answers.installation = ("## Installation\n" + answers.installation + "\n");
+        tableOfContents += ("[Installation](#installation)\n")
+      }
+      if (answers.use !='') {
+        answers.use = ("## Use\n" + answers.use + "\n");
+        tableOfContents += ("[Use](#use)\n")
+      }
+      if (answers.testing !='') {
+        answers.testing = ("## Testing\n" + answers.testing + "\n");
+        tableOfContents += ("[Testing](#testing)\n")
+      }
+
+      var credits = '';
+      if ((answers.creditCollabs != '') && (answers.creditAttributions !='')) {
+        credits = ("## Credits\n" + answers.creditCollabs + "\n" + answers.creditAttributions + "\n");
+        tableOfContents += ("[Credits](#credits)\n")
+      } else if ((answers.creditCollabs !='') && (!answers.creditAttributions)){
+        credits = ("## Credits\n" + answers.creditCollabs + "\n");
+        tableOfContents += ("[Credits](#credits)\n")
+      } else if ((answers.creditAttributions !='') && (!answers.creditCollabs)){
+        credits = ("## Credits\n" + answers.creditAttributions + "\n");
+        tableOfContents += ("[Credits](#credits)\n")
+      }
+
+      if (answers.contributing !='') {
+        answers.contributing = ("## Contributing\n" + answers.contributing + "\n");
+        tableOfContents += ("[Contributing](#contributing)\n")
+      }
+      if ((answers.license !='') && (!answers.license === 'None')) {
+        answers.license = ("## License\n" + "![ alt text ](https://img.shields.io/badge/License-" + answers.license + "-blue)\n" + answers.licenseDescription + "\n");
+        tableOfContents += ("[License](#license)\n")
+        } else {
+        answers.license = ("## License\n" + "This application is not licensed.\n");
+        tableOfContents += ("[License](#license)\n")
+        }
+      if (answers.demo !='') {
+        answers.demo = ("![alt text](" + answers.demo + ")\n");
+        tableOfContents += ("[Demo](#demo)\n")
+      }
+      if (answers.badgeSubject !='') {
+        answers.badgeSubject = ("## Badge\n" + "![ alt text ](https://img.shields.io/badge/" + answers.badgeSubject + "-" + answers.badgeStatus + "-" + answers.badgeColor + ")\n");
+        tableOfContents += ("[Badge](#badge)\n")
+      }
+
+      var questions = '';
+      if ((answers.github !='') && (answers.email !='')) {
+        questions = ("## Questions\n" + answers.github + "\n" + answers.email + "\n");
+        tableOfContents += ("[Questions](#questions)\n");
+     } else if ((answers.github !='') && (!answers.email)){
+        questions = ("## Questions\n" + answers.github + " ![GitHub Profile](www.github.com/" + answers.github + ")\n");
+        tableOfContents += ("[Questions](#questions)\n");
+      } else if ((answers.email !='') && (!answers.github)){
+        questions = ("## Questions\n" + answers.email + "\n");
+        tableOfContents += ("[Questions](#questions)\n")
+      }
+      return {answers, tableOfContents, credits, questions};
+  })
+
+  .then(({answers, tableOfContents, credits, questions}) => {
+    // generate user's ReadMe file
     const readmeContent = 
     `
 # ${answers.title}
-    
-## Description
+
 ${answers.description}
-
-## Table of Contents
-- [Description](#description)
-- [Installation](#installation)
-- [Use](#use)    
-- [Credits](#credits)
-- [Contributing](#contributing)
-- [License](#license)
-- [Testing](#testing)
-
-    
-## Installation
+${tableOfContents}    
 ${answers.installation}
-    
-## Use
 ${answers.use}
-
-## Testing
 ${answers.testing}
-
-## Credits
-${answers.creditCollabs}
-${answers.creditAttributions}
-
-## Contributing
+${credits}
 ${answers.contributing}
-
-## License
-![ alt text ](https://img.shields.io/badge/License-${answers.licenses}-blue)
+${answers.license}
 ${answers.licenseDescription}
-
-![alt text](${answers.demo})
-
-![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor})
-
-## Questions
-${answers.github} ![GitHub Profile](www.github.com/${answers.github})
-${answers.email}
-`;
+${answers.demo}
+${answers.badgeSubject}
+${questions}`;
 
     // create file in fs
     fs.writeFile('ReadMe.md', readmeContent, function (err) {

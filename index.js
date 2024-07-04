@@ -122,9 +122,9 @@ function init() {
       const regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
       if (regex.test(color)) {
         answers.badgeColor = color;
-      } else {
-        answers.badgeColor = 'red';
       }
+    } else if (answers.badgeColor == '') {
+        answers.badgeColor = 'red';
     }
     return answers;
   })

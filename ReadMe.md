@@ -1,36 +1,37 @@
 
-# 
+# AutoForm-ReadMe
 
+## Description
+This application takes user responses and creates a ReadMe.md file for their application.
 
 ## Table of Contents
 
+[Description](#description)
 [Installation](#installation)
 [Use](#use)
-[Credits](#credits)
 [License](#license)
 [Demo](#demo)
 [Badge](#badge)
 [Questions](#questions)
     
 ## Installation
-instal
+Clone the github repository, open a CLI terminal, ensure node.js is installed, run npm install, and then run the application. 
 
 ## Use
-use
+To run this application, enter "node index.js" in your CLI, then answer the prompts. When all prompts have been answered, your ReadMe.md file will appear in the application folder.
 
 
-## Credits
-cp;;abn
 
 
 ## License
-![ alt text ](https://img.shields.io/badge/License-WTFPL-blue)
-This is a free software license that allows for unlimited freedom and is permissive in nature. The user is allowed to do whatever they want with the software.
+![ alt text ](https://img.shields.io/badge/License-None-blue)
 
-![alt text](link)
+
+![alt text](./Develop/image/AutoForm_ReadMe.mp4)
 
 ## Badge
-![ alt text ](https://img.shields.io/badge/left-right-red)
+![ alt text ](https://img.shields.io/badge/Creator-KAT-pink)
 
 ## Questions
-email
+Katherine-Be
+ka.alex.bensley@gmail.com

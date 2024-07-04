@@ -27,7 +27,7 @@ To run this application, enter "node index.js" in your CLI, then answer the prom
 ![ alt text ](https://img.shields.io/badge/License-None-blue)
 
 
-![Demo Link](https://drive.google.com/file/d/1wJGLvaESJJCwT0uhG7X_W3oZqtlmaYmL/view?usp=sharing)
+[Demo Link](https://drive.google.com/file/d/1wJGLvaESJJCwT0uhG7X_W3oZqtlmaYmL/view?usp=sharing)
 
 ## Badge
 ![ alt text ](https://img.shields.io/badge/Creator-KAT-pink)

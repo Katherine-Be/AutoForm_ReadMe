@@ -100,15 +100,18 @@ function init() {
   .then((answers) => {
     // create license bage and add description of license
     if (answers.license === 'Creative Commons Family') {
-      answers.license = 'CC BY';
+      answers.license = 'CC_BY';
       answers.licenseDescription = 'This license lets others distribute, remix, adapt, and build upon your work, even commercially, as long as they credit you for the original creation.';
     } else if (answers.license === 'Do What The F*ck You Want To Public License') {
       answers.license = 'WTFPL';
       answers.licenseDescription = 'This is a free software license that allows for unlimited freedom and is permissive in nature. The user is allowed to do whatever they want with the software.';
     } else if (answers.license === 'LaTeX Project Public License v1.3c') {
-      answers.license = 'LPPL-1.3c';
+      answers.license = 'LPPL_1.3c';
       answers.licenseDescription = 'This license is a free software license that allows users to use, modify, and distribute the software. It is specifically designed for the LaTeX project.';
-    }
+    } else if (answers.license === 'None'){
+      answers.license='None';
+      answers.licenseDescription = '';
+    };
     return answers;
     })
 
@@ -163,11 +166,8 @@ function init() {
         answers.contributing = ("## Contributing\n" + answers.contributing + "\n");
         tableOfContents += ("[Contributing](#contributing)\n")
       }
-      if ((answers.license !='') && (!answers.license === 'None')) {
+      if (answers.license) {
         answers.license = ("## License\n" + "![ alt text ](https://img.shields.io/badge/License-" + answers.license + "-blue)\n" + answers.licenseDescription + "\n");
-        tableOfContents += ("[License](#license)\n")
-        } else {
-        answers.license = ("## License\n" + "This application is not licensed.\n");
         tableOfContents += ("[License](#license)\n")
         }
       if (answers.demo !='') {
@@ -190,7 +190,7 @@ function init() {
         questions = ("## Questions\n" + answers.email + "\n");
         tableOfContents += ("[Questions](#questions)\n")
       }
-      return {answers, tableOfContents, credits, questions};
+      return {answers, tableOfContents, credits, questions}
   })
 
   .then(({answers, tableOfContents, credits, questions}) => {
@@ -207,7 +207,6 @@ ${answers.testing}
 ${credits}
 ${answers.contributing}
 ${answers.license}
-${answers.licenseDescription}
 ${answers.demo}
 ${answers.badgeSubject}
 ${questions}`;

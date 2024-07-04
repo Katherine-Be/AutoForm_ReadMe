@@ -1,6 +1,7 @@
 // required for application
 var inquirer = require('inquirer');
 var fs = require('fs');
+const { table } = require('console');
 
 
 function init() {
@@ -38,7 +39,7 @@ function init() {
     },
     {
       type: 'input',
-      message: 'What other colaborators were involved in making your application? (If none, hit ENTER)',
+      message: 'What other collaborators were involved in making your application? (If none, hit ENTER)',
       name: 'creditCollabs',
     },
     {
@@ -73,7 +74,7 @@ function init() {
     },
     {
       type: 'input',
-      message: 'If youw= would like to include a Badge, what is the badge color(hex, rgb, rgba, hsl, hsla and css format accepted without special characters)? (If none, hit ENTER)',
+      message: 'If you would like to include a Badge, what is the badge color(hex, rgb, rgba, hsl, hsla and css format accepted without special characters)? (If none, hit ENTER)',
       name: 'badgeColor',
     },
     {
@@ -88,50 +89,80 @@ function init() {
     }
   ])
   .then((answers) => {
+    tableOfContents= '## Table of Contents\n';
+    description='';
+    installation= '';
+    use= '';
+    credits= '';
+    contributing= '';
+    license= '';
+    badge= '';
+    testing= '';
+    questions= '';
+    if (answers.description) {
+    tableOfContents= tableOfContents + '- [Description](#description)\n';
+    description= '## Description\n' + answers.description;
+    }
+    if (answers.installation) {
+    tableOfContents= tableOfContents + '- [Installation](#installation)\n';
+    installation= '## Installation\n' + answers.installation;
+    }
+    if (answers.use) {
+    tableOfContents= tableOfContents + '- [Use](#use)\n';
+    use= '## Use\n' + answers.use;
+    }
+    if (answers.creditCollabs || answers.creditAttributions){
+    tableOfContents= tableOfContents + '- [Credits](#credits)\n'
+    credits= '## Credits\n' + answers.creditCollabs + ', ' + answers.creditAttributions;
+    }
+    if (answers.contributing) {
+    tableOfContents= tableOfContents + '- [Contributing](#contributing)\n';
+    contributing= '## Contributing\n' + answers.contributing;
+    }
+    if (answers.license) {
+    tableOfContents= tableOfContents + '- [License](#license)\n'
+    license= '## License\n' + answers.license
+    }
+    if (answers.badgeSubject && answers.badgeStatus && answers.badgeColor) {
+    badge= '![ alt text ](https://img.shields.io/badge/' + answers.badgeSubject + '-' + answers.badgeStatus + '-' + answers.badgeColor + ')';
+    }
+    if (answers.testing) {
+    tableOfContents= tableOfContents + '- [Testing](#testing)\n'
+    testing= '## Testing\n' + answers.testing;
+    }
+    if (answers.github || answers.email) {
+    tableOfContents= tableOfContents + '- [Questions](#questions)\n'
+    questions= '## Questions\n' + answers.github+ '\n' + answers.email;
+    }
+    return {tableOfContents, answers, description, installation, use, credits, contributing, license, badge, testing, questions};
+  })
+  .then(data => {const {tableOfContents, answers, description, installation, use, credits, contributing, license, badge, testing, questions} = data;
     // format the readmefile - can make this a separate js file
     const readmeContent = 
     `
 # ${answers.title}
     
-## Description
-${answers.description}
+${description}
 
-## Table of Contents
-- [Description](#description)
-- [Installation](#installation)
-- [Use](#use)    
-- [Credits](#credits)
-- [Contributing](#contributing)
-- [License](#license)
-- [Testing](#testing)
+${tableOfContents}
 
+${installation}
     
-## Installation
-${answers.installation}
-    
-## Use
-${answers.use}
+${use}
 
-## Testing
-${answers.testing}
+${testing}
 
-## Credits
-${answers.creditCollabs}
-${answers.creditAttributions}
+${credits}
 
-## Contributing
-${answers.contributing}
+${contributing}
 
-## License
-${answers.license}
+${license}
 
 ![alt text](${answers.demo})
 
-![ alt text ](https://img.shields.io/badge/${answers.badgeSubject}-${answers.badgeStatus}-${answers.badgeColor})
+${badge}
 
-## Questions
-${answers.github}
-${answers.email}
+${questions}
 `;
 
     // create file in fs
